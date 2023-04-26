@@ -1,41 +1,58 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-//#include "lists_methods.h"
+#include "hangman_functions.h"
+
+#define True 1
+#define False 0
 
 int main(int argc, char *argv[])
 {
-    char test_char = 'D' + 32;
-    printf("The test character is %c\n",test_char);
-    /*
-    To delete!
-    */
-    char word_to_guess[] = "ROUGE";
-    char input_letter = 0;
+    int allowed_input = False, default_lives = True;
+    User_Game default_profile;
+    printf("%c\n", char_to_uppercase('m'));
 
-    printf("The word to guess is %s\n",word_to_guess);
-    for (int i = 0; i<3; i++)
+    for (int i = 0; i < argc; i++)
     {
-        printf("Guess a letter :");
-        scanf("%c", &input_letter);
-        if ((input_letter > 64 && input_letter < 91) || (input_letter > 96 && input_letter < 123))
-        {
-            printf("You've just entered %c\n", input_letter);
+        printf("argv[%d] = %s\n", i, argv[i]);
 
-            char *answer = strchr(word_to_guess, input_letter);
-            printf("Yes or no: %s and address %d\n", answer, &answer);
+        if (strcmp(argv[i],"-w") == 0 || strcmp(argv[i],"-word") == 0)
+        {
+            // If the number of lives is specified from the command-line,
+            // the input value after the "-l" or "-lifes" command is set.
+            strcpy(default_profile.word_to_guess, (argv[i + 1]));
+            printf("Yes yass\n");
+            allowed_input = True;
+        }
+        else if (strcmp(argv[i],"-l") == 0 || strcmp(argv[i],"-lifes") == 0)
+        {
+            // If the number of lives is specified from the command-line,
+            // the input value after the "-l" or "-lifes" command is set.
+            default_profile.lives = atoi(argv[i + 1]);
+            default_lives = False;
+            printf("Yes\n");
         }
         else
         {
-            printf("Wrong input %c, try again\n", input_letter);
-            i--;
+            // If the number of lives is not specified from the command-line,
+            // the following default is set.
+            if (default_lives == True)
+            {
+                default_profile.lives = 5;
+            }
         }
-
-        fflush(stdin);
+    }
+    if (allowed_input == False)
+    {
+        printf("Wrong input or missing commands, try again using: -l #Number_of_lives -w \"Word_to_guess\"\n");
+        exit(0);
     }
 
+
+    printf("%s Ese ess %d\n",default_profile.word_to_guess,default_profile.lives);
+    
     return 0;
 }
 
-// gcc main.c lists_methods.c -o main_tables.exe
-// ./main_tables.exe
+// gcc main.c hangman_functions.c -o game_test.exe
+// ./game_test.exe

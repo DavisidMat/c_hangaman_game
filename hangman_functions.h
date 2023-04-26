@@ -5,8 +5,24 @@ typedef struct User_Game User_Game;
 struct User_Game
 {
     int lives;
-    char word_to_guess[];
+    char word_to_guess[10];
 };
+
+void clear_input_buffer();
+/*
+This functions clears the input buffer.
+*/
+
+
+char char_to_uppercase(char input_char);
+/*
+To define! 😍😍😍😍😍😍😍😍😍
+*/
+
+void string_to_uppercase(char *input_string);
+/*
+To define! 😍😍😍😍😍😍😍😍😍
+*/
 
 char enter_input_char();
 /*
