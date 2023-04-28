@@ -1,11 +1,14 @@
 #ifndef hangman_functions
 #define hangman_functions
 
+#define True 1
+#define False 0
+
 typedef struct User_Game User_Game;
 struct User_Game
 {
     int lives;
-    char word_to_guess[10];
+    char word_to_guess[20];
 };
 
 void clear_input_buffer();
@@ -36,7 +39,7 @@ char output_char
 
 */
 
-void evaluate_input_char(char input_char);
+void guess_input_word(char *input_string, int *remaining_lives);
 /*
 
 */
